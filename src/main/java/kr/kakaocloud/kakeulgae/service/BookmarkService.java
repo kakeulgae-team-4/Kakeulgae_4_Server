@@ -47,9 +47,9 @@ public class BookmarkService {
         return bookmarkListDtos;
     }
 
-//    public Slice<BookmarkListDto> getSliceSearchBookmarkData(Long id, String keyword, Pageable pageable) {
-//        Slice<BookmarkListDto> bookmarkListSearchDtos = jobPostingRepository.findBySearchBookmarkData(id, keyword, pageable)
-//            .map(BookmarkListDto::new);
-//        return bookmarkListSearchDtos;
-//    }
+    public Slice<BookmarkListDto> getSliceSearchBookmarkData(Long id, String keyword, Pageable pageable) {
+        Slice<BookmarkListDto> bookmarkListSearchDtos = jobPostingRepository.findBySearchBookmarkData(id, keyword, pageable)
+            .map(BookmarkListDto::new);
+        return bookmarkListSearchDtos;
+    }
 }

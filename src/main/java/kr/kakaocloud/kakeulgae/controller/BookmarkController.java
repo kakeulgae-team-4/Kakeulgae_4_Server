@@ -2,9 +2,7 @@ package kr.kakaocloud.kakeulgae.controller;
 
 import kr.kakaocloud.kakeulgae.security.LoginUserId;
 import kr.kakaocloud.kakeulgae.service.BookmarkService;
-import kr.kakaocloud.kakeulgae.service.MemberService;
 import kr.kakaocloud.kakeulgae.service.dto.bookmark.BookmarkListDto;
-import kr.kakaocloud.kakeulgae.service.dto.member.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookmarkController {
 
     private final BookmarkService bookmarkService;
-    private final MemberService memberService;
 
     @PostMapping("/register/{id}")
     public ResponseEntity<String> handleBookmarkRequest(@LoginUserId Long userId,
@@ -51,5 +48,11 @@ public class BookmarkController {
     @GetMapping("/likes") // 즐겨찾기 조회 API -> 토큰을 통해 사용자 식별하고 페이지네이션을 활용하여 조회
     public Slice<BookmarkListDto> getMyBookmark(@LoginUserId Long id, Pageable pageable) {
         return bookmarkService.getSliceBookmarkData(id, pageable);
+    }
+
+    @GetMapping("/search")
+    public Slice<BookmarkListDto> getSearchBookmark(@LoginUserId Long id,
+        @RequestParam(value = "keyword") String keyword, Pageable pageable) { // 검색 API
+        return bookmarkService.getSliceSearchBookmarkData(id, keyword, pageable);
     }
 }
